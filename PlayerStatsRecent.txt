@@ -1,0 +1,1 @@
+{"Autumn": {"org": "GE", "agents": ["viper", "yoru", "jett"], "rating": "1.06", "average_damage_per_round": "139.7", "kills_per_round": "0.76"}, "Rb": {"org": "NS", "agents": ["tejo", "fade", "raze"], "rating": "1.02", "average_damage_per_round": "134.9", "kills_per_round": "0.76"}}
