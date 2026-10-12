@@ -1,3 +1,5 @@
+import * as benutils from './model-generation/network.js'
+
 const RunButton = document.getElementById("RunButton");
 const RankingsBox = document.getElementById("PlayerRankings");
 
@@ -30,6 +32,11 @@ RunButton.addEventListener("click", function () {
             </div>
 
             <div class="form-group">
+                <label for="epochs">epochs:</label>
+                <input type="number" id="epochs" name="epochs" placeholder="Enter a number (default: 100)">
+            </div>
+
+            <div class="form-group">
                 <label for="Style">Style:</label>
                 <select id="Style" name="Style">
                     <option value="">Select a style</option>
@@ -53,8 +60,13 @@ RunButton.addEventListener("click", function () {
             </div>
 
             <div class="form-group">
+                <label for="tt_split">Train/Test Split (test):</label>
+                <input type="number" id="tt_split" name="tt_split" step="0.05" placeholder="Enter a number (default: 0.25)">
+            </div>
+
+            <div class="form-group">
                 <label for="Learn_Rate">Learning Rate:</label>
-                <input type="number" id="Learn_Rate" name="Learn_Rate" step="0.0001" placeholder="Enter a number (default: 0.001)">
+                <input type="number" id="Learn_Rate" name="Learn_Rate" step="0.001" placeholder="Enter a number (default: 0.01)">
             </div>
 
         <h2>Output Settings</h2>
@@ -90,11 +102,27 @@ runwin.document.getElementById("submitRun").addEventListener("click", function()
         init_size: Number(runwin.document.getElementById("init_size").value || 5),
         style: runwin.document.getElementById("Style").value || "po2",
         activation: runwin.document.getElementById("Activation").value || "relu",
-        learn_rate: Number(runwin.document.getElementById("Learn_Rate").value || 0.001),
+        learn_rate: Number(runwin.document.getElementById("Learn_Rate").value || 0.01),
         init_size_out: Number(runwin.document.getElementById("init_size_out").value || 5),
-        activation_out: runwin.document.getElementById("Activation_out").value || "relu"
+        activation_out: runwin.document.getElementById("Activation_out").value || "relu",
+        epochs: Number(runwin.document.getElementById("epochs").value || 100),
+        tt_split: Number(runwin.document.getElementById("tt_split").value || 0.25),
     };
 
+    const model = benutils.neuralnet({
+        hidden_layer_info: {
+            count:run_settings.count, 
+            init_size:run_settings.init_size, 
+            style:run_settings.style
+        },
+        activation:run_settings.activation,
+        learn_rate:run_settings.learn_rate,
+        output_layer_info:{init_size:run_settings.init_size_out, activation:run_settings.activation_out},
+        epochs:run_settings.epochs,
+        tt_split:run_settings.tt_split
+    });
+
+    runwin.close();
 });
 
     /*const submitRunButton = runwin.document.getElementById("submitRun");
