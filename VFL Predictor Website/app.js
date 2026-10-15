@@ -1,4 +1,5 @@
-import * as benutils from './model-generation/network.js'
+import * as benutils from "@benp2325/benutils";
+import { rawCsvData } from "../Data/Sorted/sample-non-vfl/housing.js";
 
 const RunButton = document.getElementById("RunButton");
 const RankingsBox = document.getElementById("PlayerRankings");
@@ -121,6 +122,16 @@ runwin.document.getElementById("submitRun").addEventListener("click", function()
         tt_split: Number(runwin.document.getElementById("tt_split").value || 0.25),
     };
 
+    const feature_selection = {
+    "TARGET":13,
+    //put features below
+    "RM":5,
+    "AGE":6,
+    "TAX":9,
+    "LSTAT":12,
+    "CRIM":0
+    }
+
     const model = benutils.neuralnet({
         hidden_layer_info: {
             count:run_settings.count, 
@@ -136,6 +147,17 @@ runwin.document.getElementById("submitRun").addEventListener("click", function()
 
     runwin.close();
     console.log("Frame Count: ", frameCounter);
+
+    console.log(rawCsvData)
+
+    model.set_features_csv(rawCsvData, feature_selection)
+    
+    model.train();
+    model.test();
+
+    window.trainedModel = model;
+
+    console.log(model);
 
 });
 

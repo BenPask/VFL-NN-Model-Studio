@@ -1,6 +1,6 @@
-import {scatter, plot} from './graphing.js'
-import {model} from './examplemodel.js'
-import {main, footer_info} from './app.js'
+import {scatter, plot} from "@benp2325/benutils/vis";
+import {model, main, footer_info} from './model-visualization.js'
+
 
 
 // TRAINING LOSS GRAPHER

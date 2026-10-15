@@ -9,6 +9,11 @@ body {
     background-color: #3f3f3f;
 }
 
+.benvis-master {
+    width: 100%;
+    height: 100%
+}
+
 .banner {
     background-color: #ff4654;
     border: 4px solid #000000;

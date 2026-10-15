@@ -1,5 +1,7 @@
 const svgNS = "http://www.w3.org/2000/svg";
-import {model} from './examplemodel.js'
+
+export const model = window.trainedModel
+
 
 //imported layers object from random benutils model run for testing
 console.log(model.layers)

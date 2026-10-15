@@ -1,15 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<script type="importmap">
+{
+  "imports": {
+    "@benp2325/benutils": "https://cdn.jsdelivr.net/npm/@benp2325/benutils@1.1.0/index.js",
+    "@benp2325/benutils/vis": "https://cdn.jsdelivr.net/npm/@benp2325/benutils@1.1.0/src/vis.js"
+  }
+}
+</script>
+
+
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="network-visualizer/nv-style.css">
+
+<script type="module" src="../Data/Sorted/sample-non-vfl/housing.js"></script>
+<script type="module" src="/VFL Predictor Website/network-visualizer/model-metric-grapher.js"></script>
+<script type="module" src="/VFL Predictor Website/network-visualizer/model-visualization.js"></script>
+
+
 <script src="players.js" defer></script>
 <script type=module src="app.js" defer></script>
-<title>VFL Predictor for Noobs</title>
+<title>VFL Predictor</title>
 </head>
 <body>
     <div>
         <header class="banner">
-            <h1>VFL Model Tracker</h1>
+            <h1>VFL Prediction Model Creator, Trainer, and Visualizer</h1>
         
             <div class="button-row">
             <a href="About-Page.html" class="btn">About Page</a>
@@ -30,9 +48,46 @@
 
             </div>
         </main>
-    <div>
-    <div>
-    <!--PUT NETWORK VISUALIZER HERE-->
+    <div class="benvis-master">
+        <div class="header">
+        <p class="model-info">Current Layer: </p>
+        <p id='model-seed' class="model-info">Model Seed: </p>
+        <p id="layer-count" class="model-info">Layer Count: </p>
+        <p id='epochs' class="model-info">Epochs: </p>
+        <p id='test' class="model-info">Test%: </p>
+        <p id='activation' class="model-info">Activation: </p>
+        <p id='architecture' class="model-info">Architecture: </p>
+        <p id='learn-rate' class="model-info">Learn Rate: </p>
+        <p id='batch-size' class="model-info">Batch Size: </p>
+        <p id='olayer-activation' class="model-info">Output Layer Activation: </p>
+        </div>
+        <div class="main">
+            <div class="side-panel">
+            </div>
+            <div class="guide-container">
+            <div class="weight-labels">
+                <div class="high-weight"><p id="high"></p></div>
+                <div class="weight-buffer"></div>
+                <div class="low-weight"><p id="low"></p></div>
+                </div>
+            <div class="weight-guide"></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div id="traintest-div">
+            <p id='train-performance-label' class="metrics">📈TRAINING PERFORMANCE: </p>
+            <p id='loss' class="metrics">LOSS: </p>
+            </div>
+            <div id="traintest-div">
+            <p id='test-performance-label' class="metrics">📈TESTING PERFORMANCE: </p>
+            <p id='t-mse' class="metrics">MSE: </p>
+            <p id='t-rmse' class="metrics">RMSE: </p>
+            <p id='t-mae' class="metrics">MAE: </p>
+            <p id='t-r2' class="metrics">R2: </p>
+            </div>
+        </div>
     </div>
+
 </body>
 </html>
