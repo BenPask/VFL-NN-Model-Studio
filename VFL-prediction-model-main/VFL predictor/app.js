@@ -3,6 +3,18 @@ import * as benutils from './model-generation/network.js'
 const RunButton = document.getElementById("RunButton");
 const RankingsBox = document.getElementById("PlayerRankings");
 
+let frameCounter = 0;
+function frameCount() {
+    frameCounter++;
+    if (frameCounter == 600) {
+        frameCounter = 0;
+    }
+    requestAnimationFrame(frameCount);
+}
+
+requestAnimationFrame(frameCount);
+console.log("Frame Counter:", frameCounter);
+
 RunButton.addEventListener("click", function () {
 
     const runwin = window.open("", "RunWindow", "width=800, height=600");
@@ -123,6 +135,8 @@ runwin.document.getElementById("submitRun").addEventListener("click", function()
     });
 
     runwin.close();
+    console.log("Frame Count: ", frameCounter);
+
 });
 
     /*const submitRunButton = runwin.document.getElementById("submitRun");
