@@ -1,7 +1,6 @@
 const svgNS = "http://www.w3.org/2000/svg";
 
-export const model = window.trainedModel
-
+const model = window.trainedModel;
 
 //imported layers object from random benutils model run for testing
 console.log(model.layers)
@@ -24,7 +23,7 @@ const neurons = [];
 
 const layer_neuron_lists = [];
 
-const body = document.querySelector('.benvis-master');
+const body = document.querySelector('.main');
 
 export const main = document.querySelector('.main');
 
@@ -218,11 +217,12 @@ svg_container_elements.forEach(element => {
 })
 
 requestAnimationFrame(() => {
+    const mainRect = main.getBoundingClientRect();
     neurons.forEach(neuron => {
         const rect = neuron.parentElement.getBoundingClientRect();
 
-        neuron.dataset.x = (rect.left + (rect.width / 2));
-        neuron.dataset.y = (rect.top + (rect.height / 2));
+        neuron.dataset.x = (rect.left - mainRect.left + (rect.width / 2));
+        neuron.dataset.y = (rect.top - mainRect.top + (rect.height / 2));
     });
     draw_weights();
     weight_guide.setAttribute('style', `background-image: linear-gradient(to top, 
@@ -249,9 +249,9 @@ function weight_line(x1, y1, x2, y2, weight){
     newPath.setAttribute('d', `M ${x1} ${y1} L ${x2} ${y2}`);
     
     let red = 0
-    let green = (weight*100)
+    let green = Math.min(255, weight*255)
     if(weight<0){
-        red = ((weight*-1)*100)
+        red = Math.min(255,((weight*-1)*255))
         green = 0
     }
     if(green > brightest_green){

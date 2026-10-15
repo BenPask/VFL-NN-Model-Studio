@@ -13,6 +13,11 @@ function frameCount() {
     requestAnimationFrame(frameCount);
 }
 
+async function run_visualizer() {
+    await import('./network-visualizer/model-visualization.js')
+    await import('./network-visualizer/model-metric-grapher.js')
+}
+
 requestAnimationFrame(frameCount);
 console.log("Frame Counter:", frameCounter);
 
@@ -54,9 +59,9 @@ RunButton.addEventListener("click", function () {
                 <select id="Style" name="Style">
                     <option value="">Select a style</option>
                     <option value="po2">po2 (Default)</option>
-                    <option value="Flat">Flat</option>
+                    <option value="flat">Flat</option>
                     <option value="Bottleneck">Bottleneck</option>
-                    <option value="Hourglass">Hourglass</option>
+                    <option value="hourglass">Hourglass</option>
                 </select>
             </div>
 
@@ -140,7 +145,7 @@ runwin.document.getElementById("submitRun").addEventListener("click", function()
         },
         activation:run_settings.activation,
         learn_rate:run_settings.learn_rate,
-        output_layer_info:{init_size:run_settings.init_size_out, activation:run_settings.activation_out},
+        output_layer_info:{init_size:1, activation:run_settings.activation_out},
         epochs:run_settings.epochs,
         tt_split:run_settings.tt_split
     });
@@ -148,17 +153,15 @@ runwin.document.getElementById("submitRun").addEventListener("click", function()
     runwin.close();
     console.log("Frame Count: ", frameCounter);
 
-    console.log(rawCsvData)
+    run_visualizer()
 
     model.set_features_csv(rawCsvData, feature_selection)
+    benutils.normalize_features(model)
     
     model.train();
     model.test();
 
     window.trainedModel = model;
-
-    console.log(model);
-
 });
 
     /*const submitRunButton = runwin.document.getElementById("submitRun");

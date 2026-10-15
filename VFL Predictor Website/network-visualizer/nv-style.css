@@ -1,14 +1,6 @@
-
-
-* {
-    margin:0;
-    padding:0;
-    box-sizing: border-box;
-}
-
 .benvis-master {
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     overflow: hidden;
     background-color: rgb(29, 29, 29);
     font-family: Arial, Helvetica, sans-serif;
@@ -19,6 +11,7 @@
     width: auto;
     height: 92vh;
     padding: 1vw;
+    position: relative;
 }
 
 .header {
@@ -37,7 +30,6 @@
     
     z-index: 10;
     font-weight: bold;
-   
 }
 
 .side-panel {
@@ -86,7 +78,7 @@
 }
 
 #high {
-    position: absolute;
+    position: relative;
     right: 4vw;
     color: black;
     background-color: black;
@@ -95,7 +87,7 @@
 }
 
 #low {
-    position: absolute;
+    position: relative;
     right: 4vw;
     bottom: 6vh;
     color: black;
@@ -131,8 +123,7 @@
 .loss-graph {
     visibility: hidden;
     position: absolute;
-    left:15vw;
-    top:3vh;
+
     z-index: 10;
     width:70vw
 }
@@ -140,8 +131,7 @@
 .test-pvt-graph {
     visibility: hidden;
     position: absolute;
-    left:50vw;
-    top:4vh;
+
     z-index: 10;
     width:48vw
 }
@@ -149,8 +139,7 @@
 .train-pvt-graph {
     visibility: hidden;
     position: absolute;
-    left:2vw;
-    top:4vh;
+
     z-index: 10;
     width:48vw
     
@@ -211,17 +200,16 @@
 }
 
 .weight-svg {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
+
 }
 
 .weight-line {
-    
     stroke-width: 2px;
     fill: none;
-    z-index: 1;
+   
 }

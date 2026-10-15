@@ -1,7 +1,7 @@
 import {scatter, plot} from "@benp2325/benutils/vis";
-import {model, main, footer_info} from './model-visualization.js'
+import {main, footer_info} from './model-visualization.js'
 
-
+const model = window.trainedModel; 
 
 // TRAINING LOSS GRAPHER
 const ep = [];
@@ -15,10 +15,13 @@ const splot = scatter({
     y_values:model.properties.performance_metrics.training.loss_list, 
     width:800, 
     height:450, 
-    y_step:.02,
-    x_step:2,
+
     x_label:"epoch", 
     y_label:"loss (training)",
+
+    x_step:3,
+    y_step:.005,
+
     background_color:"lightGrey",
     class_name:"loss-graph"
 });
@@ -32,10 +35,13 @@ const testing_predict_vs_target = scatter({
     y_values:model.properties.predictions_and_targets.testing.predictions, 
     width:800, 
     height:600, 
-    y_step:2,
-    x_step:2,
+
     x_label:"real targets(testing)", 
     y_label:"predictions(testing)",
+
+    x_step:.01,
+    y_step:.1,
+
     background_color:"lightGrey",
     class_name:"test-pvt-graph",
     point_size:3
@@ -55,10 +61,12 @@ const training_predict_vs_target = scatter({
     y_values:pvt_final_epoch.predictions, 
     width:800, 
     height:600, 
-    y_step:2,
-    x_step:2,
+
     x_label:"real targets (training, final epoch)", 
     y_label:"predictions(training, final epoch)",
+
+    x_step:.01,
+    y_step:.1,
     background_color:"lightGrey",
     class_name:"train-pvt-graph",
     point_size:3
