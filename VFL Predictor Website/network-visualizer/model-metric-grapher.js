@@ -39,9 +39,6 @@ const testing_predict_vs_target = scatter({
     x_label:"real targets(testing)", 
     y_label:"predictions(testing)",
 
-    x_step:.01,
-    y_step:.1,
-
     background_color:"lightGrey",
     class_name:"test-pvt-graph",
     point_size:3
@@ -65,8 +62,7 @@ const training_predict_vs_target = scatter({
     x_label:"real targets (training, final epoch)", 
     y_label:"predictions(training, final epoch)",
 
-    x_step:.01,
-    y_step:.1,
+
     background_color:"lightGrey",
     class_name:"train-pvt-graph",
     point_size:3

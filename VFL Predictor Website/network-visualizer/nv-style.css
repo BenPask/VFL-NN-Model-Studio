@@ -124,16 +124,18 @@
     visibility: hidden;
     position: absolute;
 
+    left:25vw;
     z-index: 10;
-    width:70vw
+    width:68vw
 }
 
 .test-pvt-graph {
     visibility: hidden;
     position: absolute;
-
+    
+    left:49vw;
     z-index: 10;
-    width:48vw
+    width:45vw
 }
 
 .train-pvt-graph {
@@ -141,7 +143,7 @@
     position: absolute;
 
     z-index: 10;
-    width:48vw
+    width:45vw
     
 }
 
