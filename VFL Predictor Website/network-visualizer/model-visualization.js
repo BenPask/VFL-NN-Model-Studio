@@ -162,7 +162,7 @@ function populate_svgs(){
                 for(let i = starting_value; i < finishing_value; i++){
                     neuron_info_elements[temp_count].innerHTML = `n${i}: ${neuron_values[i].toFixed(4)}`;
                     if(neuron_preactivation_values != null){
-                        neuron_info_elements[temp_count].innerHTML = `n${i}: ${neuron_preactivation_values[i].toFixed(3)} + bias: ${neuron_bias_values[i].toFixed(3)} | Activated: ${neuron_values[i].toFixed(3)}`;
+                        neuron_info_elements[temp_count].innerHTML = `n${i}: ${(parseFloat(neuron_preactivation_values[i])-parseFloat(neuron_bias_values[i])).toFixed(3)} + bias: ${neuron_bias_values[i].toFixed(3)} | Activated: ${neuron_values[i].toFixed(3)}`;
                     }
                     neuron_info_elements[temp_count].parentElement.setAttribute('style', 'background-color: transparent;');
                     temp_count++;

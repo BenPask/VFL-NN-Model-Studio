@@ -60,7 +60,6 @@ RunButton.addEventListener("click", function () {
                     <option value="">Select a style</option>
                     <option value="po2">po2 (Default)</option>
                     <option value="flat">Flat</option>
-                    <option value="Bottleneck">Bottleneck</option>
                     <option value="hourglass">Hourglass</option>
                 </select>
             </div>
@@ -73,7 +72,6 @@ RunButton.addEventListener("click", function () {
                     <option value="sigmoid">Sigmoid</option>
                     <option value="tanh">Tanh</option>
                     <option value="leaky_relu">Leaky ReLU</option>
-                    <option value="softmax">Softmax</option>
                 </select>
             </div>
 
@@ -97,11 +95,11 @@ RunButton.addEventListener("click", function () {
                 <label for="Activation_out">Activation:</label>
                 <select id="Activation_out" name="Activation_out">
                     <option value="">Select an activation function</option>
-                    <option value="relu">ReLU (Default)</option>
+                    <option value="none">None (Default)</option>
+                    <option value="relu">ReLU</option>
                     <option value="sigmoid">Sigmoid</option>
                     <option value="tanh">Tanh</option>
                     <option value="leaky_relu">Leaky ReLU</option>
-                    <option value="softmax">Softmax</option>
                 </select>
             </div>
 
@@ -122,7 +120,7 @@ runwin.document.getElementById("submitRun").addEventListener("click", function()
         activation: runwin.document.getElementById("Activation").value || "relu",
         learn_rate: Number(runwin.document.getElementById("Learn_Rate").value || 0.01),
         init_size_out: Number(runwin.document.getElementById("init_size_out").value || 5),
-        activation_out: runwin.document.getElementById("Activation_out").value || "relu",
+        activation_out: runwin.document.getElementById("Activation_out").value || "none",
         epochs: Number(runwin.document.getElementById("epochs").value || 100),
         tt_split: Number(runwin.document.getElementById("tt_split").value || 0.25),
     };
@@ -155,9 +153,11 @@ runwin.document.getElementById("submitRun").addEventListener("click", function()
 
     run_visualizer()
 
-    model.set_features_csv(rawCsvData, feature_selection)
-    benutils.normalize_features(model)
-    
+    model.set_features_csv(rawCsvData, feature_selection);
+    benutils.normalize_features(model);
+
+    console.log(model)
+
     model.train();
     model.test();
 
