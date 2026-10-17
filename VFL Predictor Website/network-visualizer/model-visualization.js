@@ -2,8 +2,24 @@ const svgNS = "http://www.w3.org/2000/svg";
 
 const model = window.trainedModel;
 
-//imported layers object from random benutils model run for testing
-console.log(model.layers)
+const obs_slider = document.getElementById('obs-slider');
+
+const neuron_labels = window.neuronLabels;
+console.log(window.neuronLabels)
+
+const final_observations = window.finalObservations
+
+function update_neurons(){
+    obs_num = obs_slider.value;
+    observation = {layers:final_observations[obs_num][1]}
+}
+
+obs_slider.max = window.finalObservations.length - 1;
+obs_slider.value = 0;
+
+let obs_num = obs_slider.value;
+
+let observation = {layers:final_observations[obs_num][1]};
 
 let layer_count = Object.keys(model.layers).length;
 
@@ -101,7 +117,7 @@ function populate_svgs(){
 
     for(const layer of layer_containers){
         const layer_name = layer.id;
-        const neuron_outputs = model.layers[layer_name]['output'];
+        const neuron_outputs = observation.layers[layer_name]['output'];
 
         const layer_svg_containers = layer.querySelectorAll('.svg-container');
 
@@ -122,15 +138,15 @@ function populate_svgs(){
             newNeuron.dataset.value = set_value;
 
             newNeuron.addEventListener('mouseenter', (e) =>{
+                update_neurons();
+
                 const target = e.target;
                 
-                const neuron_values = model.layers[target.dataset.layer]['output'];
+                const neuron_values = observation.layers[target.dataset.layer]['output'];
                 
-                let neuron_preactivation_values = model.layers[target.dataset.layer]['preactivation']
+                let neuron_preactivation_values = observation.layers[target.dataset.layer]['preactivation']
 
                 let neuron_bias_values = null;
-
-                
 
                 if(target.dataset.layer == 'input_layer'){
                     neuron_preactivation_values = null;
@@ -160,9 +176,15 @@ function populate_svgs(){
                 }
                 
                 for(let i = starting_value; i < finishing_value; i++){
-                    neuron_info_elements[temp_count].innerHTML = `n${i}: ${neuron_values[i].toFixed(4)}`;
+                    neuron_info_elements[temp_count].innerHTML = `n${i}: ${neuron_values[i].toFixed(4)} |
+                     LABEL: ${neuron_labels[i]}`;
                     if(neuron_preactivation_values != null){
-                        neuron_info_elements[temp_count].innerHTML = `n${i}: ${(parseFloat(neuron_preactivation_values[i])-parseFloat(neuron_bias_values[i])).toFixed(3)} + bias: ${neuron_bias_values[i].toFixed(3)} | Activated: ${neuron_values[i].toFixed(3)}`;
+                        neuron_info_elements[temp_count].innerHTML = `n${i}: ${(parseFloat(neuron_preactivation_values[i])-parseFloat(neuron_bias_values[i])).toFixed(3)}
+                         + bias: ${neuron_bias_values[i].toFixed(3)}
+                          | Activated: ${neuron_values[i].toFixed(3)}`;
+                    }
+                    if(target.dataset.layer == "output_layer"){
+                        neuron_info_elements[temp_count].innerHTML += `| PREDICTION: ${final_observations[obs_num][0].toFixed(3)}`
                     }
                     neuron_info_elements[temp_count].parentElement.setAttribute('style', 'background-color: transparent;');
                     temp_count++;
@@ -188,7 +210,6 @@ function populate_svgs(){
     }
 }
 
-console.log(neurons);
 
 build_neuron_info();
 build_layers();
@@ -334,7 +355,14 @@ function fill_header_info(){
 
 export const footer_info = {
     loss:document.getElementById('loss'),
+    mse:document.getElementById('mse'),
+    rmse:document.getElementById('rmse'),
+    mae:document.getElementById('mae'),
+    r2:document.getElementById('r2'),
     
+
+    t_mse:document.getElementById('t-loss'),
+
     t_mse:document.getElementById('t-mse'),
     t_rmse:document.getElementById('t-rmse'),
     t_mae:document.getElementById('t-mae'),
@@ -344,20 +372,35 @@ export const footer_info = {
 function fill_footer_info(){
     const training_loss_list = model.properties.performance_metrics.training.loss_list
     const first_middle_last_loss = [training_loss_list[0], training_loss_list[Math.round(training_loss_list.length/2)] , training_loss_list[training_loss_list.length-1]];
-    
-    footer_info.loss.innerHTML = `📈 LOSS: first(${first_middle_last_loss[0].toFixed(3)}) middle(${first_middle_last_loss[1].toFixed(3)}) last(${first_middle_last_loss[2].toFixed(3)})`;
 
-    footer_info.t_mse.innerHTML = `MSE (NORMALIZED): ${model.properties.performance_metrics.testing.loss.toFixed(3)}`
-    footer_info.t_rmse.innerHTML = `RMSE: ${model.properties.performance_metrics.testing.rmse.toFixed(3)}`
-    footer_info.t_mae.innerHTML = `MAE: ${model.properties.performance_metrics.testing.mae.toFixed(3)}`
-    footer_info.t_r2.innerHTML = `R2: ${model.properties.performance_metrics.testing.r2.toFixed(3)}`
+    const training_mse_list = model.properties.performance_metrics.training.mse_list
+    const first_middle_last_mse = [training_mse_list[0], training_mse_list[Math.round(training_mse_list.length/2)] , training_mse_list[training_mse_list.length-1]];
+
+    const training_rmse_list = model.properties.performance_metrics.training.rmse_list
+    const first_middle_last_rmse = [training_rmse_list[0], training_rmse_list[Math.round(training_rmse_list.length/2)] , training_rmse_list[training_rmse_list.length-1]];
+
+    const training_mae_list = model.properties.performance_metrics.training.mae_list
+    const first_middle_last_mae = [training_mae_list[0], training_mae_list[Math.round(training_mae_list.length/2)] , training_mae_list[training_mae_list.length-1]];
+
+    const training_r2_list = model.properties.performance_metrics.training.r2_list
+    const first_middle_last_r2 = [training_r2_list[0], training_r2_list[Math.round(training_r2_list.length/2)] , training_r2_list[training_r2_list.length-1]];
+
+    footer_info.loss.innerHTML = `📈 LOSS: first(${first_middle_last_loss[0].toFixed(3)}) mid(${first_middle_last_loss[1].toFixed(3)}) last(${first_middle_last_loss[2].toFixed(3)})`;
+    footer_info.mse.innerHTML = `MSE(DN): first(${first_middle_last_mse[0].toFixed(1)}) mid(${first_middle_last_mse[1].toFixed(2)}) last(${first_middle_last_mse[2].toFixed(2)})`;
+    footer_info.rmse.innerHTML = `RMSE: first(${first_middle_last_rmse[0].toFixed(3)}) mid(${first_middle_last_rmse[1].toFixed(3)}) last(${first_middle_last_rmse[2].toFixed(3)})`;
+    footer_info.mae.innerHTML = `MAE: first(${first_middle_last_mae[0].toFixed(3)}) mid(${first_middle_last_mae[1].toFixed(3)}) last(${first_middle_last_mae[2].toFixed(3)})`;
+    footer_info.r2.innerHTML = `R2: first(${first_middle_last_r2[0].toFixed(3)}) mid(${first_middle_last_r2[1].toFixed(3)}) last(${first_middle_last_r2[2].toFixed(3)})`;
+
+    footer_info.t_mse.innerHTML = `MSE (NORMALIZED): ${model.properties.performance_metrics.testing.loss.toFixed(3)}`;
+    footer_info.t_rmse.innerHTML = `RMSE: ${model.properties.performance_metrics.testing.rmse.toFixed(3)}`;
+    footer_info.t_mae.innerHTML = `MAE: ${model.properties.performance_metrics.testing.mae.toFixed(3)}`;
+    footer_info.t_r2.innerHTML = `R2: ${model.properties.performance_metrics.testing.r2.toFixed(3)}`;
 }
 
 fill_header_info();
 fill_footer_info();
 
 const weight_guide = document.querySelector('.weight-guide');
-
 
 
 

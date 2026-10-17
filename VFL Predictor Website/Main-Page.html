@@ -5,8 +5,8 @@
 <script type="importmap">
 {
   "imports": {
-    "@benp2325/benutils": "https://cdn.jsdelivr.net/npm/@benp2325/benutils@1.1.0/index.js",
-    "@benp2325/benutils/vis": "https://cdn.jsdelivr.net/npm/@benp2325/benutils@1.1.0/src/vis.js"
+    "@benp2325/benutils": "https://cdn.jsdelivr.net/npm/@benp2325/benutils@1.1.7/index.js",
+    "@benp2325/benutils/vis": "https://cdn.jsdelivr.net/npm/@benp2325/benutils@1.1.7/src/vis.js"
   }
 }
 </script>
@@ -44,9 +44,14 @@
             <div class="box">
                 <h3>Best Team combo</h3>
                 <p>Duelist / Init / Senti / Smoke / Wild / Wild</p>
-
             </div>
         </main>
+        <div style="background-color: #3f3f3f; padding:1vh">
+            <label for="obs-slider" style="font-weight: bold; color: brown;">OBSERVATION:</label>
+            <input type="range" id="obs-slider" min="0" max="100" step="1" style="width: 93vw;"
+            value="0" oninput="this.nextElementSibling.value = this.value"></input>
+            <output style="font-weight: bold; color: brown;">0</output>
+        </div>
     <div class="benvis-master">
         <div class="header">
         <p class="model-info">Current Layer: </p>
@@ -74,16 +79,26 @@
         </div>
 
         <div class="footer">
-            <div id="traintest-div">
-            <p id='train-performance-label' class="metrics">📈TRAINING PERFORMANCE: </p>
-            <p id='loss' class="metrics">LOSS: </p>
+            <div id="train-div">
+                <p id='train-performance-label' class="metrics">📈TRAINING PERFORMANCE: </p>
+                <div class="train-metrics-div">
+                    <p id='loss' class="metrics">LOSS: </p>
+                    <p id='mse' class="metrics">MSE(DENORMALIZED): </p>
+                    </div>
+                    <div class="train-metrics-div">
+                    <p id='rmse' class="metrics">RMSE: </p>
+                    <p id='mae' class="metrics">MAE: </p>
+                    <p id='r2' class="metrics">R2: </p>
+                    </div>
+                
             </div>
-            <div id="traintest-div">
-            <p id='test-performance-label' class="metrics">📈TESTING PERFORMANCE: </p>
-            <p id='t-mse' class="metrics">MSE: </p>
-            <p id='t-rmse' class="metrics">RMSE: </p>
-            <p id='t-mae' class="metrics">MAE: </p>
-            <p id='t-r2' class="metrics">R2: </p>
+            <div id="test-div">
+                <p id='test-performance-label' class="metrics">📈TESTING PERFORMANCE: </p>
+                <p id='t-mse' class="metrics">MSE: </p>
+                <p id='t-rmse' class="metrics">RMSE: </p>
+                <p id='t-mae' class="metrics">MAE: </p>
+                <p id='t-r2' class="metrics">R2: </p>
+
             </div>
         </div>
     </div>

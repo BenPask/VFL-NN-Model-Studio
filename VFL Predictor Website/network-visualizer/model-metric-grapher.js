@@ -19,11 +19,13 @@ const splot = scatter({
     x_label:"epoch", 
     y_label:"loss (training)",
 
-    x_step:3,
-    y_step:.005,
+    
 
     background_color:"lightGrey",
-    class_name:"loss-graph"
+    class_name:"loss-graph",
+    connect_points:true
+
+   
 });
 
 main.append(splot.plot())

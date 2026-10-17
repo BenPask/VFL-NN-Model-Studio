@@ -14,6 +14,7 @@ function frameCount() {
 }
 
 async function run_visualizer() {
+    await import('./predictor.js')
     await import('./network-visualizer/model-visualization.js')
     await import('./network-visualizer/model-metric-grapher.js')
 }
