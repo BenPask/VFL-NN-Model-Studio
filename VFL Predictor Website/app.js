@@ -23,8 +23,8 @@ requestAnimationFrame(frameCount);
 console.log("Frame Counter:", frameCounter);
 
 RunButton.addEventListener("click", function () {
-
-    const runwin = window.open("", "RunWindow", "width=800, height=600");
+    const generated_seed = performance.now();
+    const runwin = window.open("", "RunWindow", "width=1000, height=800");
      runwin.document.write(`
         <!DOCTYPE html>
         <html>
@@ -39,30 +39,35 @@ RunButton.addEventListener("click", function () {
             </style>
         </head>
         <body>
-        <h2>Input Settings</h2>
+        <h2>Model Creation</h2>
             <div class="form-group">
-                <label for="Count">Count:</label>
-                <input type="number" id="Count" name="Count" placeholder="Enter a number (default: 5)">
+                <label for="Seed">Seed:</label>
+                <input type="number" id="Seed" name="Seed" placeholder="Generated from web-interactions, settable for re-testing (current gen:${generated_seed})">
             </div>
 
             <div class="form-group">
-                <label for="init_size">Initial Size:</label>
-                <input type="number" id="init_size" name="init_size" placeholder="Enter a number (default: 5)">
+                <label for="Count">Hidden Layer Count:</label>
+                <input type="number" id="Count" name="Count" placeholder="Enter a number (default: 2)">
             </div>
 
             <div class="form-group">
-                <label for="epochs">epochs:</label>
-                <input type="number" id="epochs" name="epochs" placeholder="Enter a number (default: 100)">
+                <label for="init_size">Initial Layer Size:</label>
+                <input type="number" id="init_size" name="init_size" placeholder="Enter a number (default: 8)">
             </div>
 
             <div class="form-group">
-                <label for="Style">Style:</label>
+                <label for="Style">Architecture Type:</label>
                 <select id="Style" name="Style">
-                    <option value="">Select a style</option>
-                    <option value="po2">po2 (Default)</option>
-                    <option value="flat">Flat</option>
+                    <option value="">Select your architecture preset</option>
+                    <option value="po2">Po2</option>
+                    <option value="flat">Flat(default)</option>
                     <option value="hourglass">Hourglass</option>
                 </select>
+            </div>
+
+            <div class="form-group">
+                <label for="init_size">Hourglass Operator:</label>
+                <input type="text" id="hg_operator" name="hg_operator" placeholder="If hourglass architecture: /(default), *, **, or sqroot">
             </div>
 
             <div class="form-group">
@@ -86,11 +91,12 @@ RunButton.addEventListener("click", function () {
                 <input type="number" id="Learn_Rate" name="Learn_Rate" step="0.001" placeholder="Enter a number (default: 0.01)">
             </div>
 
-        <h2>Output Settings</h2>
             <div class="form-group">
-                <label for="init_size_out">Initial Size:</label>
-                <input type="number" id="init_size_out" name="init_size_out" placeholder="Enter a number (default: 5)">
+                <label for="epochs">epochs:</label>
+                <input type="number" id="epochs" name="epochs" placeholder="Enter a number (default: 100)">
             </div>
+
+        <h2>Output Settings</h2>
 
             <div class="form-group">
                 <label for="Activation_out">Activation:</label>
@@ -115,15 +121,16 @@ runwin.document.close();
 runwin.document.getElementById("submitRun").addEventListener("click", function() {
 
     const run_settings = {
-        count: Number(runwin.document.getElementById("Count").value || 5),
-        init_size: Number(runwin.document.getElementById("init_size").value || 5),
-        style: runwin.document.getElementById("Style").value || "po2",
+        count: Number(runwin.document.getElementById("Count").value || 2),
+        init_size: Number(runwin.document.getElementById("init_size").value || 8),
+        style: runwin.document.getElementById("Style").value || "flat",
         activation: runwin.document.getElementById("Activation").value || "relu",
         learn_rate: Number(runwin.document.getElementById("Learn_Rate").value || 0.01),
-        init_size_out: Number(runwin.document.getElementById("init_size_out").value || 5),
         activation_out: runwin.document.getElementById("Activation_out").value || "none",
         epochs: Number(runwin.document.getElementById("epochs").value || 100),
         tt_split: Number(runwin.document.getElementById("tt_split").value || 0.25),
+        hg_operator: runwin.document.getElementById("hg_operator").value || "/",
+        seed: Number(runwin.document.getElementById("Seed").value || generated_seed)
     };
 
     const feature_selection = {
@@ -142,6 +149,7 @@ runwin.document.getElementById("submitRun").addEventListener("click", function()
             init_size:run_settings.init_size, 
             style:run_settings.style
         },
+        random_seed:generated_seed,
         activation:run_settings.activation,
         learn_rate:run_settings.learn_rate,
         output_layer_info:{init_size:1, activation:run_settings.activation_out},

@@ -18,6 +18,8 @@ All models created on the website are built using benutils, the API developed fo
 
 # Model Creation Options
 
+### Seed - Generated via tracking the time in milliseconds when the user clicks the "Create & Train" button, affects randomness of weight generation. Users may specify a seed for isolating variation between models.
+
 ### Hidden Layer Count - Specifies the number of hidden layers in the model.
 
 ### Initial Layer Size - Specifies the number of neurons in the first hidden layer. The following hidden layer sizes are determined by the selected architecture type.
@@ -59,7 +61,7 @@ _(User provided operation is used to determine the next layer size, in this exam
 
 ### Epochs - The number of times your model runs through the set of observations.
 
-### Output Activation - Optionally, you can specify an activation function for only the output layer. By default, there is no activation, but it could make a difference  depending on your training strategy.
+### Output Activation - Optionally, you can specify an activation function for only the output layer. By default, there is no activation, but it could make a difference depending on your training strategy.
 
 # Visualizing your model
 
