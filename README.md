@@ -12,11 +12,11 @@ Authors: Benjamin Pask, Clay Wright, Jackson Bowers, and Ian Collins.
 
 # Model Info
 
-On VFL Neural Network Model Studio, users create, train, and visualize a regression-based neural network prediction model to predict a list of professional VALORANT players' VFL points, a metric created by the VALORANT Fantasy League developers to reflect a holistic measure of player performance. We selected and created the features for potential models based on the VFL scoring rules found [here](https://www.valorantfantasyleague.net/rules) . For a full list of the features used and explanations of their meaning and relevance to the project, please scroll to the "Feature List" section of this file.
+On VFL Neural Network Model Studio, users create, train, and visualize a regression-based neural network prediction model to predict a list of professional VALORANT players' VFL points, a metric created by the VALORANT Fantasy League developers to reflect a holistic measure of player performance. We selected and created the features for potential models based on the VFL scoring rules found [here](https://www.valorantfantasyleague.net/rules) . For a full list of the features used and explanations of their meaning and relevance to the project, you may visit the ["Feature List"](#feature-list) section of this file.
 
 All models created on the website are built using benutils, the API developed for this project. More extensive documentation regarding benutils and its functions is available [here]([url](https://github.com/BenPask/benutils)).
 
-## Model Creation Options
+# Model Creation Options
 
 **Hidden Layer Count** - Specifies the number of hidden layers in the model.
 
@@ -25,26 +25,53 @@ All models created on the website are built using benutils, the API developed fo
 **Architecture Type** - The shape and hidden layer sizes of the model. Users pick from the following options:</br>
 _(All examples were generated using shape-showcasing sizes that are not meant to reflect good model engineering practices for our dataset)_
 
-### Flat
+Flat
 _(Generated with a hidden layer count of 5 and an initial layer size of 5)_
-<img width="800" height="496" alt="flat arch" src="https://github.com/user-attachments/assets/6872569d-85a1-47db-b4ab-bf35ce10cc56" />
+<img width="600" height="372" alt="flat arch" src="https://github.com/user-attachments/assets/6872569d-85a1-47db-b4ab-bf35ce10cc56" /></br>
 
-### Po2
+Po2
 _(Generated with a hidden layer count of 6 and an initial layer size of 16)_ </br>
-<img width="800" height="496" alt="po2 arch" src="https://github.com/user-attachments/assets/d4ed0f8e-4df9-4a66-89bc-b4985cf6083e" />
-- _(Not visible: initial layer size automatically becomes the closest power of 2 to the number provided)_ </br>
-- _(Architecture functions automatically space out their operations to create clean, predictable shapes)_
+<img width="600" height="372" alt="po2 arch" src="https://github.com/user-attachments/assets/d4ed0f8e-4df9-4a66-89bc-b4985cf6083e" /></br>
+_(Not visible: initial layer size automatically becomes the closest power of 2 to the number provided)_ </br>
+_(Architecture functions automatically space out their operations to create clean, predictable shapes)_
 
-### Hourglass
+Hourglass
 _(Generated with a hidden layer count of 7 and an initial layer size of 7)_ </br>
-<img width="800" height="496" alt="hourglass arch" src="https://github.com/user-attachments/assets/9ae8c315-5a3d-418b-b6e9-2e32ed9ce490" />
-- _(Options for hourglass operators are *, /, **, sqroot. Chosen operator gets inverted at the halfway point)_ </br>
-- _(User provided operation is used to determine the next layer size, in this example: hourglass operator = /, inverse op = *)_
+<img width="600" height="372" alt="hourglass arch" src="https://github.com/user-attachments/assets/9ae8c315-5a3d-418b-b6e9-2e32ed9ce490" /></br>
+_(Options for hourglass operators are *, /, **, sqroot. Chosen operator gets inverted at the halfway point)_ </br>
+_(User provided operation is used to determine the next layer size, in this example: hourglass operator = /, inverse op = *)_
+
+**Hourglass Operator** - Exclusively for Hourglass architecture, determines the operation applied to each hidden layer size.
+
+**Activation** - The function applied to every value being sent from one hidden layer to the next. The function does not get applied when sending values from the input layer to the first hidden layer, or from the final hidden layer to the output layer. There are 4 activation functions available in VFL NN Studio:
+
+ReLU - Returns the input when x > 0 and 0 otherwise. Useful for its exceptional computational efficiency, though it can cause a risk of the [dying ReLU problem]([url](https://machinelearning.wtf/terms/dying-relu/)). 
+
+Leaky ReLU - Same as ReLU, but returns a very small value instead of 0. Still efficient, and avoids the potential pitfall of dying neurons.
+
+Tanh - Returns a value between -1 and 1, using tanh(x). More computationally expensive than ReLU, but useful when having a mean activation closer to 0 benefits your training strategy.
+
+Sigmoid - Returns a value between 0 and 1 using a simple formula. Less computationally expensive than Tanh, but still more expensive than ReLU. Gradient updates are smoother than Tanh, which can be beneficial or not depending on your training strategy.
+
+**Train/Test Split** - A number from 0-1 that represents the percentage of the total observations dedicated to the test set. The test set is a subset of your observations that no longer uses the target feature and therefore is not used to train. It is used to evaluate the effectiveness of the model's training using metrics like MSE, RMSE, MAE, and R2. 
+
+**Learn Rate** - A simple constant that training changes are multiplied by to minimize the aggressiveness of the calculated changes to your model's weights and biases.
+
+**Epochs** - The number of times your model runs through the set of observations.
+
+**Output Activation** - Optionally, you can specify an activation function for only the output layer. By default, there is no activation, but it could make a difference  depending on your training strategy.
+
+# Visualizing your model
+
+### Once your created model finishes its training, scroll down to the model visualizer to evaluate its performance.
+
+<img width="2819" height="1482" alt="Visualizer guide" src="https://github.com/user-attachments/assets/4a275c65-99b1-4391-9b9a-9d7c5952daae" />
+
+### Text elements with the 📈 icon are hoverable elements that create scatterplots for deeper evaluation.
+
+<img width="500" height="234" alt="image" src="https://github.com/user-attachments/assets/e6198657-ab41-4158-828b-9833cbc8f550" /> <img width="500" height="250" alt="image" src="https://github.com/user-attachments/assets/b4c40f29-9134-412f-a257-a83e9eab539b" />
 
 
-
-
-****
 
 # Feature List:
 
