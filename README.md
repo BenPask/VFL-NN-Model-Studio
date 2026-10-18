@@ -1,12 +1,50 @@
-# VFL NN Model Studio
+# VFL Neural Network Model Studio
 
-VFL Neural Network Studio is a website where users can create, train, visualize, and analyze custom neural networks to predict the VALORANT Fantasy League (VFL) scores of professional VALORANT players. Built around a zero-dependency vanilla JavaScript engine developed specifically for this project. The engine features linear algebra/matrix math utilities, selectable model architecture types, model training from .csv or .json data, as well as a PRNG function (for weight initialization) and a custom scatterplot graphing module that returns an HTML canvas element. The training data was collected from an API for vlr.gg, a popular stats/news resource in the VALORANT esports space.
+VFL Neural Network Studio is a website where users can create, train, visualize, and analyze custom neural networks to predict the VALORANT Fantasy League (VFL) scores of professional VALORANT players. Built around a zero-dependency vanilla JavaScript engine developed specifically for this project called [benutils](https://github.com/BenPask/benutils), the engine features linear algebra/matrix math utilities, model architecture templates, model training via .csv or .json data, as well as PRNG (for weight initialization) and a custom scatterplot graphing module that returns an HTML canvas element. The training data was collected from an API for [vlr.gg](https://www.vlr.gg/), a popular stats/news resource in the VALORANT esports space.
 
 VALORANT Fantasy League (VFL) Player Score Prediction Tool
 
+Authors: Benjamin Pask, Clay Wright, Jackson Bowers, and Ian Collins. 
+
+### This project was created as a proof of concept for a student-led development group. Following its success, the four of us have expanded our team, formalized our workflow, and are now taking on larger-scale projects.
+
+<img width="2000" height="700" alt="vfl model credit" src="https://github.com/user-attachments/assets/741dda4a-5562-4aee-a8d3-13e83e86b958" />
+
 # Model Info
 
-On VFL Neural Network Model Studio, users create, train, and visualize a regression-based neural network prediction model using an HTML-based selection interface that sends information to predict VFL points, a cumulative metric created by the VALORANT Fantasy League developers to reflect strong player performance. We selected and created the features for potential models based on the VFL scoring rules found [here]([url](https://www.valorantfantasyleague.net/rules)). For a full list of the features used and explanations of their meaning and relevance to the project, please scroll to the "Feature List" section of this file.
+On VFL Neural Network Model Studio, users create, train, and visualize a regression-based neural network prediction model to predict a list of professional VALORANT players' VFL points, a metric created by the VALORANT Fantasy League developers to reflect a holistic measure of player performance. We selected and created the features for potential models based on the VFL scoring rules found [here](https://www.valorantfantasyleague.net/rules) . For a full list of the features used and explanations of their meaning and relevance to the project, please scroll to the "Feature List" section of this file.
+
+All models created on the website are built using benutils, the API developed for this project. More extensive documentation regarding benutils and its functions is available [here]([url](https://github.com/BenPask/benutils)).
+
+## Model Creation Options
+
+**Hidden Layer Count** - Specifies the number of hidden layers in the model.
+
+**Initial Layer Size** - Specifies the number of neurons in the first hidden layer. The following hidden layer sizes are determined by the selected architecture type.
+
+**Architecture Type** - The shape and hidden layer sizes of the model. Users pick from the following options:</br>
+_(All examples were generated using shape-showcasing sizes that are not meant to reflect good model engineering practices for our dataset)_
+
+### Flat
+_(Generated with a hidden layer count of 5 and an initial layer size of 5)_
+<img width="800" height="496" alt="flat arch" src="https://github.com/user-attachments/assets/6872569d-85a1-47db-b4ab-bf35ce10cc56" />
+
+### Po2
+_(Generated with a hidden layer count of 6 and an initial layer size of 16)_ </br>
+<img width="800" height="496" alt="po2 arch" src="https://github.com/user-attachments/assets/d4ed0f8e-4df9-4a66-89bc-b4985cf6083e" />
+- _(Not visible: initial layer size automatically becomes the closest power of 2 to the number provided)_ </br>
+- _(Architecture functions automatically space out their operations to create clean, predictable shapes)_
+
+### Hourglass
+_(Generated with a hidden layer count of 7 and an initial layer size of 7)_ </br>
+<img width="800" height="496" alt="hourglass arch" src="https://github.com/user-attachments/assets/9ae8c315-5a3d-418b-b6e9-2e32ed9ce490" />
+- _(Options for hourglass operators are *, /, **, sqroot. Chosen operator gets inverted at the halfway point)_ </br>
+- _(User provided operation is used to determine the next layer size, in this example: hourglass operator = /, inverse op = *)_
+
+
+
+
+****
 
 # Feature List:
 
