@@ -1,8 +1,8 @@
 # VFL Neural Network Model Studio
 
-VFL Neural Network Studio is a website where users can create, train, visualize, and analyze custom neural networks to predict the VALORANT Fantasy League (VFL) scores of professional VALORANT players. Built around a zero-dependency vanilla JavaScript engine developed specifically for this project called [benutils](https://github.com/BenPask/benutils), the engine features linear algebra/matrix math utilities, model architecture templates, model training via .csv or .json data, as well as PRNG (for weight initialization) and a custom scatterplot graphing module that returns an HTML canvas element. The training data was collected from an API for [vlr.gg](https://www.vlr.gg/), a popular stats/news resource in the VALORANT esports space.
+VFL Neural Network Studio is an interactive 100% client-side web application where users can create, train, visualize, and analyze custom neural networks entirely in the browser. Created models are used to predict the VALORANT Fantasy League (VFL) scores of professional VALORANT players. 
 
-VALORANT Fantasy League (VFL) Player Score Prediction Tool
+Built around a zero-dependency vanilla JavaScript engine developed specifically for this project called [benutils](https://github.com/BenPask/benutils), the engine features linear algebra/matrix math utilities, model architecture templates, model training via .csv or .json data, as well as PRNG (for weight initialization), and a custom canvas scatterplot graphing module. The training data was collected from an API for [vlr.gg](https://www.vlr.gg/), a popular stats/news resource in the VALORANT esports space.
 
 Authors: Benjamin Pask, Clay Wright, Jackson Bowers, and Ian Collins. 
 
@@ -14,7 +14,7 @@ Authors: Benjamin Pask, Clay Wright, Jackson Bowers, and Ian Collins.
 
 On VFL Neural Network Model Studio, users create, train, and visualize a regression-based neural network prediction model to predict a list of professional VALORANT players' VFL points, a metric created by the VALORANT Fantasy League developers to reflect a holistic measure of player performance. We selected and created the features for potential models based on the VFL scoring rules found [here](https://www.valorantfantasyleague.net/rules) . For a full list of the features used and explanations of their meaning and relevance to the project, you may visit the ["Feature List"](#feature-list) section of this file.
 
-All models created on the website are built using benutils, the API developed for this project. More extensive documentation regarding benutils and its functions is available [here]([url](https://github.com/BenPask/benutils)).
+All models created on the website are built using benutils, the API developed for this project. More extensive documentation regarding benutils and its functions is available [here](https://github.com/BenPask/benutils).
 
 # Model Creation Options
 
