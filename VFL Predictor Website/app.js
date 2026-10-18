@@ -149,7 +149,7 @@ runwin.document.getElementById("submitRun").addEventListener("click", function()
             init_size:run_settings.init_size, 
             style:run_settings.style
         },
-        random_seed:generated_seed,
+        random_seed:run_settings.seed,
         activation:run_settings.activation,
         learn_rate:run_settings.learn_rate,
         output_layer_info:{init_size:1, activation:run_settings.activation_out},
