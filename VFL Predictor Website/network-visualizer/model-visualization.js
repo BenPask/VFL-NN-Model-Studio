@@ -361,7 +361,7 @@ export const footer_info = {
     r2:document.getElementById('r2'),
     
 
-    t_mse:document.getElementById('t-loss'),
+    t_loss:document.getElementById('t-loss'),
 
     t_mse:document.getElementById('t-mse'),
     t_rmse:document.getElementById('t-rmse'),
@@ -391,7 +391,8 @@ function fill_footer_info(){
     footer_info.mae.innerHTML = `MAE: first(${first_middle_last_mae[0].toFixed(3)}) mid(${first_middle_last_mae[1].toFixed(3)}) last(${first_middle_last_mae[2].toFixed(3)})`;
     footer_info.r2.innerHTML = `R2: first(${first_middle_last_r2[0].toFixed(3)}) mid(${first_middle_last_r2[1].toFixed(3)}) last(${first_middle_last_r2[2].toFixed(3)})`;
 
-    footer_info.t_mse.innerHTML = `MSE (NORMALIZED): ${model.properties.performance_metrics.testing.loss.toFixed(3)}`;
+    footer_info.t_loss.innerHTML = `LOSS: ${model.properties.performance_metrics.testing.loss.toFixed(3)}`;
+    footer_info.t_mse.innerHTML = `MSE (DN): ${model.properties.performance_metrics.testing.mse.toFixed(3)}`;
     footer_info.t_rmse.innerHTML = `RMSE: ${model.properties.performance_metrics.testing.rmse.toFixed(3)}`;
     footer_info.t_mae.innerHTML = `MAE: ${model.properties.performance_metrics.testing.mae.toFixed(3)}`;
     footer_info.t_r2.innerHTML = `R2: ${model.properties.performance_metrics.testing.r2.toFixed(3)}`;
