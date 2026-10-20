@@ -92,6 +92,11 @@ RunButton.addEventListener("click", function () {
             </div>
 
             <div class="form-group">
+                <label for="batch_size">Batch Size:</label>
+                <input type="number" id="batch_size" name="batch_size" step="1" placeholder="Enter a number (default: 10)">
+            </div>
+
+            <div class="form-group">
                 <label for="epochs">epochs:</label>
                 <input type="number" id="epochs" name="epochs" placeholder="Enter a number (default: 100)">
             </div>
@@ -130,17 +135,26 @@ runwin.document.getElementById("submitRun").addEventListener("click", function()
         epochs: Number(runwin.document.getElementById("epochs").value || 100),
         tt_split: Number(runwin.document.getElementById("tt_split").value || 0.25),
         hg_operator: runwin.document.getElementById("hg_operator").value || "/",
+        batch_size: Number(runwin.document.getElementById("batch_size").value || 10),
         seed: Number(runwin.document.getElementById("Seed").value || generated_seed)
     };
 
     const feature_selection = {
-    "TARGET":13,
-    //put features below
-    "RM":5,
-    "AGE":6,
-    "TAX":9,
-    "LSTAT":12,
-    "CRIM":0
+        "TARGET":13,
+        //put features below
+        "CRIM":0,
+        "ZN":1,
+        "INDUS":2,
+        "CHAS":3,
+        "NOX":4,
+        "RM":5,
+        "AGE":6,
+        "DIS":7,
+        "RAD":8,
+        "TAX":9,
+        "PTRATIO":10,
+        "B":11,
+        "LSTAT":12
     }
 
     const model = benutils.neuralnet({
@@ -149,6 +163,7 @@ runwin.document.getElementById("submitRun").addEventListener("click", function()
             init_size:run_settings.init_size, 
             style:run_settings.style
         },
+        batch_size:run_settings.batch_size,
         random_seed:run_settings.seed,
         activation:run_settings.activation,
         learn_rate:run_settings.learn_rate,
@@ -158,7 +173,6 @@ runwin.document.getElementById("submitRun").addEventListener("click", function()
     });
 
     runwin.close();
-    console.log("Frame Count: ", frameCounter);
 
     run_visualizer()
 
