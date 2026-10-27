@@ -1,25 +1,30 @@
 import * as benutils from "@benp2325/benutils";
-import { rawCsvData } from "../Data/Sorted/sample-non-vfl/housing.js";
+import { rawCsvData } from "../Data/Sorted/valorant/valo-teams-and-players.js";
 
 const csvData = rawCsvData.trim().split('\n').map(row=>row.split(','));
 
 const feature_selection = {
-    "TARGET":13,
+    "TARGET":20,
     //put features below
-    "CRIM":0,
-    "ZN":1,
-    "INDUS":2,
-    "CHAS":3,
-    "NOX":4,
-    "RM":5,
-    "AGE":6,
-    "DIS":7,
-    "RAD":8,
-    "TAX":9,
-    "PTRATIO":10,
-    "B":11,
-    "LSTAT":12
-    }
+    "MAP_WINS":2,
+    "TEN_ROUND":3,
+    "FIVE_ROUND":4,
+    "P1-KPR":5,
+    "P1-RATE":6,
+    "P1-ADR":7,
+    "P2-KPR":8,
+    "P2-RATE":9,
+    "P2-ADR":10,
+    "P3-KPR":11,
+    "P3-RATE":12,
+    "P3-ADR":13,
+    "P4-KPR":14,
+    "P4-RATE":15,
+    "P4-ADR":16,
+    "P5-KPR":17,
+    "P5-RATE":18,
+    "P5-ADR":19,
+}
 
 //csv header safegaurd, default=0 or "no headers"
 let start_index = 0;

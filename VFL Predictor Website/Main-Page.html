@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="network-visualizer/nv-style.css">
 
 <script type="module" src="../Data/Sorted/sample-non-vfl/housing.js"></script>
+<script type="module" src="../Data/Sorted/valorant/valo-teams-and-players.js"></script>
 
 
 
@@ -38,21 +39,11 @@
             </div>
         </header>
         <main class="box-container">
-            <div class="box">
-                <h3>Player Rankings</h3>
-                <div style="overflow: auto;" class="box-scroll" id="PlayerRankings">
-                    <p style="white-space: nowrap;"> Press run to generate player rankings </p>
-                </div>
-            </div>
-            <div class="box">
-                <h3>Best Team combo</h3>
-                <p>Duelist / Init / Senti / Smoke / Wild / Wild</p>
-            </div>
         </main>
         <div style="background-color: #3f3f3f; padding:1vh">
             <label for="obs-slider" style="font-weight: bold; color: brown;">OBSERVATION:</label>
             <input type="range" id="obs-slider" min="0" max="100" step="1" style="width: 93vw;"
-            value="0" oninput="this.nextElementSibling.value = this.value"></input>
+            value="0"></input>
             <output style="font-weight: bold; color: brown;">0</output>
         </div>
     <div class="benvis-master">

@@ -1,4 +1,7 @@
+import { rawCsvData } from "../../Data/Sorted/valorant/valo-teams-and-players.js";
+
 const svgNS = "http://www.w3.org/2000/svg";
+
 
 const model = window.trainedModel;
 
@@ -8,6 +11,12 @@ const neuron_labels = window.neuronLabels;
 console.log(window.neuronLabels)
 
 const final_observations = window.finalObservations
+
+const csvData = rawCsvData.trim().split('\n').map(row=>row.split(','));
+
+obs_slider.oninput = function(event){
+    obs_slider.nextElementSibling.value = csvData[parseInt(this.value)+1][1]
+}
 
 function update_neurons(){
     obs_num = obs_slider.value;
